@@ -3,7 +3,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:my_portfolio/pages/landing_content_page_view.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import 'core/widgets/custom_page_indicator.dart';
 
@@ -23,24 +22,56 @@ class BlurredShapesHome extends StatefulWidget {
   @override
   _BlurredShapesHomeState createState() => _BlurredShapesHomeState();
 }
-
 class _BlurredShapesHomeState extends State<BlurredShapesHome>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
+    with TickerProviderStateMixin {
+  late AnimationController _controller; // For the shapes animation
+  late AnimationController _scaleController; // For the LandingContentPageView scale animation
+  late Animation<double> _scaleAnimation; // Scale animation for the content
+  late Animation<double> _opacityAnimation; // Opacity animation for the content
   PageController pageController = PageController();
 
   @override
   void initState() {
     super.initState();
+
+    // Background shapes animation
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 3),
+      duration: const Duration(seconds: 4),
     )..repeat();
+
+    // Scale animation for LandingContentPageView
+    _scaleController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 900),
+    );
+
+    // Define the scale animation, starting from 0.8 (small) to 1.0 (full size)
+    _scaleAnimation = Tween<double>(
+      begin: 0.8, // Start as small as 0
+      end: 1.0,   // End at full size
+    ).animate(CurvedAnimation(
+      parent: _scaleController,
+      curve: Curves.easeOut, // Smooth easing curve
+    ));
+
+    // Define the opacity animation, starting from 0.0 (invisible) to 1.0 (fully visible)
+    _opacityAnimation = Tween<double>(
+      begin: 0.0, // Start with 0 opacity
+      end: 1.0,   // End with full opacity
+    ).animate(CurvedAnimation(
+      parent: _scaleController,
+      curve: Curves.easeOut, // Smooth easing curve for opacity
+    ));
+
+    // Start the scale and opacity animation together
+    _scaleController.forward();
   }
 
   @override
   void dispose() {
     _controller.dispose();
+    _scaleController.dispose();
     super.dispose();
   }
 
@@ -61,26 +92,40 @@ class _BlurredShapesHomeState extends State<BlurredShapesHome>
             },
           ),
 
+          // Blur filter overlay
           BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 60, sigmaY: 60),
             child: Container(
               color: Colors.black.withOpacity(0.2),
             ),
           ),
+
+          // Page indicator
           Align(
             alignment: Alignment.centerRight,
             child: CustomPageIndicator(
               pageController: pageController,
             ),
           ),
-          LandingContentPageView(
-            pageController: pageController,
-          )
+
+          // Scale and fade-in LandingContentPageView (appears from the center)
+          Center(
+            child: FadeTransition(
+              opacity: _opacityAnimation, // Apply opacity transition
+              child: ScaleTransition(
+                scale: _scaleAnimation, // Apply scale transition
+                child: LandingContentPageView(
+                  pageController: pageController,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
 }
+
 
 class BlurredShapesPainter extends CustomPainter {
   final double progress;
