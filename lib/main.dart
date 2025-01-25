@@ -29,19 +29,18 @@ class _BlurredShapesHomeState extends State<BlurredShapesHome>
   late AnimationController _scaleController;
   late Animation<double> _scaleAnimation;
   late Animation<double> _opacityAnimation;
-  PageController pageController = PageController();
+  PageController pageController = PageController(
+  );
 
   @override
   void initState() {
     super.initState();
 
-    // Background shapes animation
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 4),
     )..repeat();
 
-    // Scale animation for LandingContentPageView
     _scaleController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 900),
@@ -52,18 +51,16 @@ class _BlurredShapesHomeState extends State<BlurredShapesHome>
       end: 1.0,
     ).animate(CurvedAnimation(
       parent: _scaleController,
-      curve: Curves.easeOut, // Smooth easing curve
+      curve: Curves.easeOut,
     ));
 
     _opacityAnimation = Tween<double>(
-      begin: 0.0, // Start with 0 opacity
-      end: 1.0, // End with full opacity
+      begin: 0.0,
+      end: 1.0,
     ).animate(CurvedAnimation(
       parent: _scaleController,
-      curve: Curves.easeOut, // Smooth easing curve for opacity
+      curve: Curves.easeOut,
     ));
-
-    // Start the scale and opacity animation together
     _scaleController.forward();
   }
 
@@ -80,7 +77,6 @@ class _BlurredShapesHomeState extends State<BlurredShapesHome>
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-          // Animated shapes in the background
           AnimatedBuilder(
             animation: _controller,
             builder: (context, child) {
@@ -91,7 +87,6 @@ class _BlurredShapesHomeState extends State<BlurredShapesHome>
             },
           ),
 
-          // Blur filter overlay
           BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 60, sigmaY: 60),
             child: Container(
