@@ -2,7 +2,10 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:my_portfolio/pages/landing_content_page_view.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
+import 'core/widgets/custom_page_indicator.dart';
 
 void main() => runApp(BlurredShapesApp());
 
@@ -66,29 +69,13 @@ class _BlurredShapesHomeState extends State<BlurredShapesHome>
           ),
           Align(
             alignment: Alignment.centerRight,
-            child: Padding(
-              padding: const EdgeInsets.only(right: 4),
-              child: Container(
-                decoration: BoxDecoration(
-                    color: Colors.grey.withOpacity(0.5),
-                    borderRadius: BorderRadius.circular(20)),
-                child: Padding(
-                  padding: const EdgeInsets.all(3.0),
-                  child: SmoothPageIndicator(
-                    controller: pageController, // PageController
-                    count: 4,
-                    axisDirection: Axis.vertical,
-                    effect: WormEffect(
-                        dotColor: Colors.white.withOpacity(0.5),
-                        activeDotColor: Colors.black.withOpacity(0.8),
-                        spacing: 3,
-                        dotHeight: 8,
-                        dotWidth: 8),
-                  ),
-                ),
-              ),
+            child: CustomPageIndicator(
+              pageController: pageController,
             ),
           ),
+          LandingContentPageView(
+            pageController: pageController,
+          )
         ],
       ),
     );
