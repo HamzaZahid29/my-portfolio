@@ -78,7 +78,6 @@ class _BlurredShapesHomeState extends State<BlurredShapesHome>
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-          // Animated shapes in the background
           AnimatedBuilder(
             animation: _controller,
             builder: (context, child) {
@@ -89,7 +88,6 @@ class _BlurredShapesHomeState extends State<BlurredShapesHome>
             },
           ),
 
-          // Blur filter overlay
           BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 60, sigmaY: 60),
             child: Container(

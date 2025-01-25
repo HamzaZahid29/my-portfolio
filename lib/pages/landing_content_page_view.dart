@@ -86,15 +86,39 @@ class LandingContentPageView extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 38, horizontal: 18),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 38, horizontal: 18),
                 child: Column(
                   children: [
                     Text(
                       'My Contributions',
-                      style: TextStyle(color: Colors.black, fontFamily: 'as', fontWeight: FontWeight.w900, fontSize: 30),
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'as',
+                          fontWeight: FontWeight.w900,
+                          fontSize: 30),
+                    ),
+                    SizedBox(
+                      height: 30,
                     ),
                     Container(
-
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: 200,
+                            width: MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(color: Colors.black,
+                            borderRadius: BorderRadius.circular(10)),
+                          ),
+                          SizedBox(height: 10,),
+                          Text('SincereCare', style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: 'as',
+                              fontWeight: FontWeight.w900,
+                              fontSize: 20),)
+                        ],
+                      ),
                     )
                   ],
                 ),
