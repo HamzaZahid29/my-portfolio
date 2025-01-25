@@ -22,12 +22,13 @@ class BlurredShapesHome extends StatefulWidget {
   @override
   _BlurredShapesHomeState createState() => _BlurredShapesHomeState();
 }
+
 class _BlurredShapesHomeState extends State<BlurredShapesHome>
     with TickerProviderStateMixin {
-  late AnimationController _controller; // For the shapes animation
-  late AnimationController _scaleController; // For the LandingContentPageView scale animation
-  late Animation<double> _scaleAnimation; // Scale animation for the content
-  late Animation<double> _opacityAnimation; // Opacity animation for the content
+  late AnimationController _controller;
+  late AnimationController _scaleController;
+  late Animation<double> _scaleAnimation;
+  late Animation<double> _opacityAnimation;
   PageController pageController = PageController();
 
   @override
@@ -46,19 +47,17 @@ class _BlurredShapesHomeState extends State<BlurredShapesHome>
       duration: const Duration(milliseconds: 900),
     );
 
-    // Define the scale animation, starting from 0.8 (small) to 1.0 (full size)
     _scaleAnimation = Tween<double>(
-      begin: 0.8, // Start as small as 0
-      end: 1.0,   // End at full size
+      begin: 0.8,
+      end: 1.0,
     ).animate(CurvedAnimation(
       parent: _scaleController,
       curve: Curves.easeOut, // Smooth easing curve
     ));
 
-    // Define the opacity animation, starting from 0.0 (invisible) to 1.0 (fully visible)
     _opacityAnimation = Tween<double>(
       begin: 0.0, // Start with 0 opacity
-      end: 1.0,   // End with full opacity
+      end: 1.0, // End with full opacity
     ).animate(CurvedAnimation(
       parent: _scaleController,
       curve: Curves.easeOut, // Smooth easing curve for opacity
@@ -78,7 +77,7 @@ class _BlurredShapesHomeState extends State<BlurredShapesHome>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       body: Stack(
         children: [
           // Animated shapes in the background
@@ -96,7 +95,7 @@ class _BlurredShapesHomeState extends State<BlurredShapesHome>
           BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 60, sigmaY: 60),
             child: Container(
-              color: Colors.black.withOpacity(0.2),
+              color: Colors.black.withOpacity(0.1),
             ),
           ),
 
@@ -125,7 +124,6 @@ class _BlurredShapesHomeState extends State<BlurredShapesHome>
     );
   }
 }
-
 
 class BlurredShapesPainter extends CustomPainter {
   final double progress;
