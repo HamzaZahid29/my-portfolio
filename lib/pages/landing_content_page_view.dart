@@ -96,27 +96,60 @@ class LandingContentPageView extends StatelessWidget {
                           color: Colors.black,
                           fontFamily: 'as',
                           fontWeight: FontWeight.w900,
-                          fontSize: 30),
+                          fontSize: 26),
                     ),
                     SizedBox(
                       height: 30,
                     ),
                     Container(
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10)),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                            height: 200,
+                            height: MediaQuery.of(context).size.height /3,
                             width: MediaQuery.of(context).size.width,
-                            decoration: BoxDecoration(color: Colors.black,
-                            borderRadius: BorderRadius.circular(10)),
-                          ),
-                          SizedBox(height: 10,),
-                          Text('SincereCare', style: TextStyle(
+                            decoration: BoxDecoration(
                               color: Colors.black,
-                              fontFamily: 'as',
-                              fontWeight: FontWeight.w900,
-                              fontSize: 20),)
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(
+                                  10,
+                                ),
+                                topRight: Radius.circular(10)
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  'SincereCare',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontFamily: 'poppins',
+                                      fontWeight: FontWeight.w900,
+                                      fontSize: 18),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  'SincereCare is a multi-vendor caring application. It includes multiple type of member as well as administrative account creation. Supports features like assigning tasks to workers. Fully fledge meal prepration guides with video tutorials.',
+                                  style: TextStyle(
+                                      color: Colors.black.withOpacity(.5),
+                                      fontFamily: 'poppins',
+                                      fontSize: 14),
+                                ),
+                              ],
+                            ),
+                          )
                         ],
                       ),
                     )

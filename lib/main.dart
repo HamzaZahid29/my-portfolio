@@ -30,7 +30,6 @@ class _BlurredShapesHomeState extends State<BlurredShapesHome>
   late Animation<double> _scaleAnimation;
   late Animation<double> _opacityAnimation;
   PageController pageController = PageController(
-    initialPage: 1
   );
 
   @override
